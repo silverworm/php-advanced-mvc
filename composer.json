@@ -1,0 +1,17 @@
+{
+    "name": "silverworm/php-advanced-mvc",
+    "description": "mvc",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Ihor Huk",
+            "email": "lsmredfilter@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "core\\": "core/"
+        }
+    }
+}
