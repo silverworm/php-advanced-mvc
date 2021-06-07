@@ -16,7 +16,7 @@ class Application implements RunnableInterface,ContainerInterface
 
     public function run()
     {
-        echo 'test-test - Allworking';
+        echo 'test-test - Allworking' . '<br>';
         $router = new Router;
 
         echo $router->route();

@@ -87,6 +87,8 @@ class Router implements RouterInterface
                 $ActionMethod = $reflect->getMethod($actionName);
 
                 $this->runAction($className,$ActionMethod,$params);
+            }else{
+                echo 'page not found';
             }
 
 
