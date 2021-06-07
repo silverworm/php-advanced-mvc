@@ -1,7 +1,7 @@
 <?php
 
 
-namespace core\contracts;
+namespace core\interfaces;
 
 interface RunnableInterface
 {
