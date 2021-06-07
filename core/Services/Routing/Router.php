@@ -22,6 +22,8 @@ class Router implements RouterInterface
         $this->pathElements = explode('/', $_SERVER['REQUEST_URI']);
         $params = [];
 
+        // print_r($this->pathElements);
+
         if(count($this->pathElements) >= 3){
             $this->controller = $this->pathElements[1];
             if(!empty($this->pathElements[2])){
@@ -43,16 +45,24 @@ class Router implements RouterInterface
             unset($adittionalParams[2]);
 
             // reset array keys
-            sort($adittionalParams);
+            $adittionalParams = array_values($adittionalParams);
+
+            // print_r($adittionalParams);
 
             // parse adittional params
             for ($i=0; $i < count($adittionalParams); $i++) {
-                if(!$i%2 && !empty($adittionalParams[$i+1])){
-                    echo $adittionalParams[$i];
-                    $params[$adittionalParams[$i]] = $adittionalParams[$i+1];
+
+                $CurrentKey = $i;
+                // echo  '<br>' . !($CurrentKey%2) . $i%2 . '--------'. $i . ' +++ '. ($i+1) . '+++' . $adittionalParams[($i+1)] . !empty($adittionalParams[($CurrentKey+1)]);
+                // echo '----'. $adittionalParams[$i+1] .  '<br>';
+                if(!($CurrentKey%2) && !empty($adittionalParams[($CurrentKey+1)])){
+                    // echo $adittionalParams[$i].'+++++<br>';
+                    $params[$adittionalParams[$i]] = $adittionalParams[($i+1)];
                 }
             }
         }
+
+        // print_r($params);
 
         $this->runRoute($params);
     }
@@ -96,11 +106,12 @@ class Router implements RouterInterface
         $checkRequired = true;
 
         foreach ($parameters as $key => $parameter) {
-            if(empty($this->pathElements[$parameter->name]) && !$parameter->isDefaultValueAvailable()){
+            // print_r($params);
+            if(empty($params[$parameter->name]) && !$parameter->isDefaultValueAvailable()){
                 $checkRequired = false;
-                echo 'missing required params';
-            }else if(!empty($this->pathElements[$parameter->name])){
-                $paramsToAction[$parameter] = $this->pathElements[$parameter->name];
+                echo 'missing required params' . $parameter->name;
+            }else if(!empty($params[$parameter->name])){
+                $paramsToAction[$parameter->name] = $params[$parameter->name];
             }
 
             if(!$parameter->isDefaultValueAvailable()){
@@ -109,7 +120,7 @@ class Router implements RouterInterface
         }
 
         if($checkRequired){
-            $ActionMethod->invokeArgs($this->controllerClass,$params);
+            $ActionMethod->invokeArgs($this->controllerClass,$paramsToAction);
         }
     }
 
