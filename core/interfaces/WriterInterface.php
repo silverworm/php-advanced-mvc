@@ -5,9 +5,18 @@
 namespace core\interfaces;
 
 
+/**
+ * Interface WriterInterface
+ * @package core\interfaces
+ */
 interface WriterInterface
 {
 
-  public function write($message, array $context);
+    /**
+     * @param $message
+     * @param array $context
+     * @return mixed
+     */
+    public function write($message, array $context);
 
 }

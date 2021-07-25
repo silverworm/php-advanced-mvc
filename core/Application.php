@@ -14,6 +14,9 @@ use core\Services\Routing\Router;
 class Application implements RunnableInterface,ContainerInterface
 {
 
+    /**
+     * @throws \ReflectionException
+     */
     public function run()
     {
         echo 'test-test - Allworking' . '<br>';
@@ -22,11 +25,17 @@ class Application implements RunnableInterface,ContainerInterface
         echo $router->route();
     }
 
+    /**
+     * @return mixed|void
+     */
     public function get()
     {
 
     }
 
+    /**
+     * @return mixed|void
+     */
     public function has()
     {
 

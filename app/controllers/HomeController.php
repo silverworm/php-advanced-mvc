@@ -5,18 +5,26 @@
 namespace app\controllers;
 
 /**
- *
+ * Class HomeController
+ * @package app\controllers
  */
 class HomeController
 {
 
-  public function viewAction(string $userName,$sads='asd')
+    /**
+     * @param string $userName
+     * @param string $sads
+     */
+    public function viewAction(string $userName, $sads='asd')
   {
     // code...
     echo "Helo home page -- " . $userName . '<br>';
   }
 
-  public function addAction()
+    /**
+     *
+     */
+    public function addAction()
   {
     // code...
     echo "Helo home page";

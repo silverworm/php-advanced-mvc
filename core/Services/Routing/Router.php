@@ -8,17 +8,35 @@ use core\interfaces\RouterInterface;
 use core\Services\Logger\Logger;
 use core\Services\Writer\FileWriter;
 
+
 /**
- *
+ * Class Router
+ * @package core\Services\Routing
  */
 class Router implements RouterInterface
 {
 
+    /**
+     * @var
+     */
     protected $controllerName;
+    /**
+     * @var
+     */
     protected $acctionName;
+    /**
+     * @var
+     */
     protected $controllerClass;
+    /**
+     * @var array
+     */
     protected $pathElements = [];
 
+    /**
+     * @return mixed|void
+     * @throws \ReflectionException
+     */
     public function route()
     {
         $this->pathElements = explode('/', $_SERVER['REQUEST_URI']);
@@ -69,6 +87,10 @@ class Router implements RouterInterface
         $this->runRoute($params);
     }
 
+    /**
+     * @param array $params
+     * @throws \ReflectionException
+     */
     protected function runRoute(array $params){
         $controllerName =  ucfirst(strtolower($this->controller)) . 'Controller';
         $controllerPath =  $_SERVER['DOCUMENT_ROOT'] . '/../app/controllers/';
@@ -100,7 +122,12 @@ class Router implements RouterInterface
         }
     }
 
-    protected function runAction($className,$ActionMethod,$params){
+    /**
+     * @param $className
+     * @param $ActionMethod
+     * @param $params
+     */
+    protected function runAction($className, $ActionMethod, $params){
 
         $parameters = $ActionMethod->getParameters();
 
