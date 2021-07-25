@@ -5,6 +5,8 @@
 namespace core\Services\Routing;
 
 use core\interfaces\RouterInterface;
+use core\Services\Logger\Logger;
+use core\Services\Writer\FileWriter;
 
 /**
  *
@@ -112,6 +114,9 @@ class Router implements RouterInterface
             if(empty($params[$parameter->name]) && !$parameter->isDefaultValueAvailable()){
                 $checkRequired = false;
                 echo 'missing required params' . $parameter->name;
+                $fileWriter = new FileWriter( 'errorLog');
+                $logger = new Logger($fileWriter);
+                $logger->log('notice','title',['dagavzxvas']);
             }else if(!empty($params[$parameter->name])){
                 $paramsToAction[$parameter->name] = $params[$parameter->name];
             }
